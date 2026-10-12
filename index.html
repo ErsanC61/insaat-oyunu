@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="tr"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-cache"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#c05621"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="Müteahhit">
 <link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon-192.png"><title>Müteahhit</title>
@@ -7,10 +7,10 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
 html,body{margin:0;height:100%;overflow:hidden;touch-action:manipulation;font-family:system-ui,-apple-system,sans-serif;background:#f3ead8;color:#2d2d2d}
 #app{display:flex;flex-direction:column;height:100%}
-#top{background:#c05621;color:#fff;padding:calc(8px + env(safe-area-inset-top)) 10px 8px;-webkit-font-smoothing:antialiased;transform:translateZ(0);display:flex;justify-content:space-between;font-weight:700;font-size:15px}
-#day{height:4px;background:#9c4221}#day i{display:block;height:100%;background:#fbd38d;width:0}
-#main{flex:1;overflow-y:auto;padding:10px;-webkit-overflow-scrolling:touch}
-#tabs{display:flex;background:#fff;border-top:1px solid #ddd;padding-bottom:env(safe-area-inset-bottom)}
+#top{position:relative;z-index:5;flex:none;opacity:1;background:#c05621;color:#fff;padding:calc(8px + env(safe-area-inset-top)) 10px 8px;-webkit-font-smoothing:antialiased;transform:translateZ(0);display:flex;justify-content:space-between;font-weight:700;font-size:15px}
+#day{position:relative;z-index:5;flex:none;height:4px;background:#9c4221}#day i{display:block;height:100%;background:#fbd38d;width:0}
+#main{flex:1;min-height:0;overflow-y:auto;position:relative;z-index:1;padding:10px;-webkit-overflow-scrolling:touch}
+#tabs{flex:none;display:flex;background:#fff;border-top:1px solid #ddd;padding-bottom:env(safe-area-inset-bottom)}
 #tabs button{flex:1;border:0;background:none;padding:8px 0 10px;font-size:11px;font-weight:600;color:#777}
 #tabs button span{display:block;font-size:22px}#tabs button.on{color:#c05621;background:#fff5eb}
 .card{background:#fff;border-radius:14px;padding:10px;margin-bottom:10px;box-shadow:0 2px 5px #0001}
@@ -105,5 +105,5 @@ $('main').innerHTML=h}
 document.body.addEventListener('click',e=>{const b=e.target.closest('[data-a],[data-t]');if(!b)return;if(b.dataset.t)A.tab(b.dataset.t);else A[b.dataset.a](b.dataset.x);save();render()});
 document.addEventListener('gesturestart',e=>e.preventDefault());
 setInterval(tick,1000);render();
-if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');
+if('serviceWorker'in navigator){let rl=0;navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(r=>{r.update();setInterval(()=>r.update(),60000)});const had=!!navigator.serviceWorker.controller;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(had&&!rl){rl=1;location.reload()}})}
 </script></body></html>
